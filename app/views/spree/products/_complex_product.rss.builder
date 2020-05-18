@@ -12,7 +12,7 @@ xml.tag!('g:link', spree.product_url(product) + '?variant=' +  variant.id.to_s)
 xml.tag!('g:image_link', structured_images(variant))
 xml.tag!('g:availability', variant.in_stock? ? 'in stock' : 'out of stock')
 
-if defined?(variant.compare_at_price)
+if defined?(variant.compare_at_price) && variant.compare_at_price != nil
   if variant.compare_at_price > product.price
     xml.tag!('g:price', variant.compare_at_price.to_s + ' ' + current_currency)
     xml.tag!('g:sale_price', variant.price_in(current_currency).amount.to_s + ' ' + current_currency)
