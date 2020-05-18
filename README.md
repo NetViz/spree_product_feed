@@ -44,9 +44,9 @@ You can take full advantage of the sale price (compare_at_price) functionality b
 ### Adding Products To Your Feed
 Once the extension is installed, you will notice a new checkbox (**Add to product feed**) available in the **Edit Product / Details** section.
 
-When the Add to product feed checkbox is checked, your product an variants will be added to the RSS feed located at: ```yourstoredomain.com/products.rss```, this can then be submitted to your Google Merchant Centre and Facebook Catalog accounts.
+When the **Add to product feed** checkbox is checked, your product or its variants depending on the type of product, will be added to the RSS feed located at: ```yourstoredomain.com/products.rss```, this can then be submitted to your Google Merchant Centre and Facebook Catalog accounts.
 
-You can hide specific variants by unchecking the **Show this varaint in product feed**.
+**NOTE:** You can hide specific variants by unchecking the **Show this varaint in product feed** within the edit details of each variant.
 
 ### Adding Data To The Products In Your Feed
 
