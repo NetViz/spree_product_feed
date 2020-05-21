@@ -20,7 +20,7 @@ if defined?(product.compare_at_price) && product.compare_at_price != nil
 else
   xml.tag!('g:price', product.price_in(current_currency).amount.to_s + ' ' + current_currency)
 end
-xml.tag!('g:' + structured_unique_identifier_type(product), structured_unique_identifier(product))
+xml.tag!('g:' + product.unique_identifier_type, product.unique_identifier)
 xml.tag!('g:sku', structured_sku(product))
 
 unless product.product_properties.blank?
