@@ -59,7 +59,7 @@ this.clickListOptions = function(list) {
 this.updateStructuredData = function() {
   var variant = this.selectedVariant()
   var host = window.location.host
-  var script = document.getElementById('productStructuredData')
+  var script = document.body.querySelector("script[type='application/ld+json']")
   var obj = JSON.parse(script.firstChild.nodeValue)
   var firstLayer = obj[0]
   var offers = obj[0].offers

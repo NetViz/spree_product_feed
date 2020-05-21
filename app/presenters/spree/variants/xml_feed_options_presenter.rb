@@ -60,6 +60,7 @@ module Spree
       def join_options(options)
         options.join("&")
       end
+      
     end
   end
 end

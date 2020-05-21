@@ -1,7 +1,7 @@
 module Spree
   module StructuredDataHelper
     def products_structured_data(products)
-      content_tag :script, id: 'productStructuredData', type: 'application/ld+json' do
+      content_tag :script, type: 'application/ld+json' do
         raw(
           products.map do |product|
             structured_product_hash(product)
@@ -21,17 +21,12 @@ module Spree
           image: structured_images(product),
           description: product.description,
           sku: structured_sku(product),
-          brand: {
-            '@type': 'Brand',
-            name: structured_brand(product)
-          },
           offers: {
             '@type': 'Offer',
-            url: spree.product_url(product),
             price: product.default_variant.price_in(current_currency).amount,
             priceCurrency: current_currency,
-            itemCondition: structured_condition(product),
-            availability: product.in_stock? ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+            availability: product.in_stock? ? 'InStock' : 'OutOfStock',
+            url: spree.product_url(product),
             availabilityEnds: product.discontinue_on ? product.discontinue_on.strftime('%F') : '',
             seller: {
               '@type': 'Organization',
@@ -44,30 +39,6 @@ module Spree
 
     def structured_sku(product)
       product.default_variant.sku? ? product.default_variant.sku : product.sku
-    end
-
-    def structured_condition(product)
-      return '' unless product.property('g:condition').present?
-
-      if product.property('g:condition') == 'used'
-        'https://schema.org/UsedCondition'
-      elsif product.property('g:condition') == 'new'
-        'https://schema.org/NewCondition'
-      end
-    end
-
-    def structured_unique_identifier(product)
-      product.default_variant.unique_identifier? ? product.default_variant.unique_identifier : product.unique_identifier
-    end
-
-    def structured_unique_identifier_type(product)
-      product.default_variant.unique_identifier_type ? product.default_variant.unique_identifier_type : product.unique_identifier_type
-    end
-
-    def structured_brand(product)
-      return '' unless product.property('g:brand').present?
-
-      product.property('g:brand')
     end
 
     def structured_images(product)
