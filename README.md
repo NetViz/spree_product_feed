@@ -142,6 +142,9 @@ To view your feed as you build it, visit:  ```localhost:3000/products.rss``` in 
   <g:condition>new</g:condition>
 </item>
  ```
+## ToDo
+
+- Beef up tests.
 
 ## Testing
 
