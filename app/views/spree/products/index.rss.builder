@@ -6,12 +6,12 @@ xml.rss("xmlns:g" => "http://base.google.com/ns/1.0", :version=>"2.0"){
     xml.description("Find out about new products first! You'll always be in the know when new products become available")
 
     if defined?(current_store.default_locale) && current_store.default_locale != nil
-      xml.language(current_store.default_locale)
+      xml.language(current_store.default_locale.downcase)
     else
       xml.language('en-us')
     end
 
-    @products = @products.except(:limit)
+    @products = @products.except(:limit, :offset)
     @products.each do |product|
        if product.product_feed_active
           if product.variants_and_option_values(current_currency).any?
