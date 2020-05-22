@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Spree::ProductsController, type: :controller do
-  let!(:product) { create(:product, product_feed_active: true) }
+  let!(:product) { create(:product, feed_active: true) }
 
   context 'Generates products in rss format' do
     it "returns page with type application/rss+xml; charset=utf-8" do

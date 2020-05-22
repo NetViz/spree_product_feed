@@ -1,4 +1,3 @@
-# coding: utf-8
 require 'spec_helper'
 
 describe 'Visiting Products', type: :feature, inaccessible: true do

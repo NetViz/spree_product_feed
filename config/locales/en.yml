@@ -3,7 +3,7 @@
 
 en:
   spree:
-    product_feed_active: Add to product feed
+    feed_active: Add to product feed
     show_in_product_feed: Show this varaint in product feed
     unique_identifier: Unique Identifier
     unique_identifier_type: Unique Identifier Type

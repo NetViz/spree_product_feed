@@ -17,27 +17,27 @@ describe 'Product feed fields', type: :feature, js: true do
 
       expect(page).to have_css('.content-header h1', text: 'Products / Spree Logo T-Shirt')
 
-      expect(page).to have_field(id: 'product_product_feed_active', checked: false)
+      expect(page).to have_field(id: 'product_feed_active', checked: false)
       expect(page).to have_field(id: 'product_unique_identifier', with: '')
       expect(page).to have_content('GTIN')
     end
 
     it 'Product feed form fields can be updated' do
-      find(:css, "#product_product_feed_active").set(true)
+      find(:css, "#product_feed_active").set(true)
       select2 'MPN', from: 'Unique Identifier Type'
       fill_in 'product_unique_identifier', with: '90210-90210'
 
       click_button 'Update'
 
       expect(page).to have_content('successfully updated!')
-      expect(page).to have_field(id: 'product_product_feed_active', checked: true)
+      expect(page).to have_field(id: 'product_feed_active', checked: true)
       expect(page).to have_content('MPN')
       expect(page).to have_field(id: 'product_sku', with: 'SP-LG-T')
       expect(page).to have_field(id: 'product_unique_identifier', with: '90210-90210')
     end
 
     it 'Variant feed form fields are present and can be updated' do
-      find(:css, "#product_product_feed_active").set(true)
+      find(:css, "#product_feed_active").set(true)
       click_button 'Update'
 
       within('#sidebar') { click_link 'Variants' }
