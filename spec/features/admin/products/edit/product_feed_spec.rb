@@ -4,6 +4,7 @@ describe 'Product feed fields', type: :feature, js: true do
   stub_authorization!
 
   context 'editing a product' do
+
     before do
       create(:product, name: 'Spree Logo T-Shirt', sku: 'SP-LG-T',
                        description: 'This is one awesome Spree T-Shirt with a black logo on the back.', available_on: '2013-08-14 01:02:03')
