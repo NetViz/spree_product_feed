@@ -1,4 +1,4 @@
-# Spree Product Feed (For Spree 4.2)
+# Spree Product Feed (Spree v4.2)
 
 [![Build Status](https://travis-ci.org/MatthewKennedy/spree_product_feed.svg?branch=master)](https://travis-ci.org/MatthewKennedy/spree_product_feed)
 
@@ -142,9 +142,6 @@ To view your feed as you build it, visit:  ```localhost:3000/products.rss``` in 
   <g:condition>new</g:condition>
 </item>
  ```
-## ToDo
-
-- Beef up tests.
 
 ## Testing
 
