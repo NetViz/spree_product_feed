@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Product Feed Checkbox And Unique Identifiers', type: :feature, js: true do
+describe 'Product feed fields', type: :feature, js: true do
   stub_authorization!
 
   context 'editing a product' do
