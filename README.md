@@ -1,4 +1,4 @@
-# Spree Product Feed
+# Spree Product Feed (For Spree 4.2)
 
 [![Build Status](https://travis-ci.org/MatthewKennedy/spree_product_feed.svg?branch=master)](https://travis-ci.org/MatthewKennedy/spree_product_feed)
 
