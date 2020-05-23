@@ -11,14 +11,14 @@ describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: 
     end
 
     let(:product) do
-        FactoryBot.create(:base_product, description: 'Testing sample',
-                                         name: 'Sample',
-                                         price: '19.99',
-                                         sku: 'SP-LG-T',
-                                         feed_active: true,
-                                         available_on: '2013-08-14 01:02:03',
-                                         unique_identifier: '80250-95240',
-                                         unique_identifier_type: 'mpn' )
+      FactoryBot.create(:base_product, description: 'Testing sample',
+                                       name: 'Sample',
+                                       price: '19.99',
+                                       sku: 'SP-LG-T',
+                                       feed_active: true,
+                                       available_on: '2013-08-14 01:02:03',
+                                       unique_identifier: '80250-95240',
+                                       unique_identifier_type: 'mpn' )
     end
 
       let(:option_type) { create(:option_type) }
@@ -38,26 +38,26 @@ describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: 
     end
 
     it "it adds the variant id's correctly", js: true do
-      xml_p = Capybara.string(page.body)
-      expect(xml_p).to have_content('<g:id>1-1-2</g:id>')
-      expect(xml_p).to have_content('<g:id>1-1-4</g:id>')
+      xml = Capybara.string(page.body)
+      expect(xml).to have_text('<g:id>1-1-2</g:id>')
+      expect(xml).to have_text('<g:id>1-1-4</g:id>')
     end
 
     it 'it adds each variant unique_identifier and unique_identifier_type correctly', js: true do
-      xml_q = Capybara.string(page.body)
-      expect(xml_q).to have_content('<g:mpn>ver1-1</g:mpn>')
-      expect(xml_q).to have_content('<g:mpn>ver1-3</g:mpn>')
+      xml = Capybara.string(page.body)
+      expect(xml).to have_text('<g:mpn>ver1-1</g:mpn>')
+      expect(xml).to have_text('<g:mpn>ver1-3</g:mpn>')
     end
 
     it 'it sets the correct item_group_id for the varinats', js: true do
-      xml_z = Capybara.string(page.body)
-      expect(xml_z).to have_content('<g:item_group_id>1-1</g:item_group_id>')
+      xml = Capybara.string(page.body)
+      expect(xml).to have_text('<g:item_group_id>1-1</g:item_group_id>')
     end
 
     it 'it removes the variant that is not to be shown in the product feed', js: true do
-      xml_x = Capybara.string(page.body)
-      expect(xml_x).to_not have_content('<g:id>1-1-3</g:id>')
-      expect(xml_x).to_not have_content('<g:mpn>ver1-2</g:mpn>')
+      xml = Capybara.string(page.body)
+      expect(xml).to_not have_text('<g:id>1-1-3</g:id>')
+      expect(xml).to_not have_text('<g:mpn>ver1-2</g:mpn>')
     end
   end
 end
