@@ -4,11 +4,6 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
   stub_authorization!
 
   context 'When a basic product is set to be shown in the product feed' do
-    let(:store) { Spree::Store.default }
-    let(:store_name) do
-      ((first_store = Spree::Store.first) && first_store.name).to_s
-    end
-
     let(:product) do
       FactoryBot.create(:base_product, feed_active: true, unique_identifier: '80250-95240', unique_identifier_type: 'mpn' )
     end
@@ -17,14 +12,6 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
       product.tap(&:save)
 
       visit "/products.rss"
-    end
-
-    it 'it renders the stock XML' do
-      xml = Capybara.string(page.body)
-
-      expect(xml).to have_text('<title>Spree Test Store</title>')
-      expect(xml).to have_text('<link>www.example.com</link>')
-      expect(xml).to have_text('<language>en-us</language>')
     end
 
     it 'it adds the basic product id correctly' do

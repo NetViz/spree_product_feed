@@ -4,12 +4,6 @@ describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: 
   stub_authorization!
 
   context 'When a product with variants is set to be shown in the product feed' do
-    let(:store) { Spree::Store.default }
-
-    let(:store_name) do
-      ((first_store = Spree::Store.first) && first_store.name).to_s
-    end
-
     let(:product) do
       FactoryBot.create(:base_product, feed_active: true, unique_identifier: '80250-95240', unique_identifier_type: 'mpn' )
     end
