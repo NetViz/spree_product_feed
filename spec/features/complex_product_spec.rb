@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: true do
   stub_authorization!
 
-
   context 'When a product with variants is set to be shown in the product feed' do
     let(:store) { Spree::Store.default }
 
@@ -32,18 +31,6 @@ describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: 
       let(:variant3) { create(:variant, product: product, option_values: [option_value3], price: '89.99', unique_identifier: 'ver1-3', unique_identifier_type: 'mpn' ) }
 
     before do
-      price1 = Spree::Price.find_by(variant: variant1)
-      price2 = Spree::Price.find_by(variant: variant2)
-      price3 = Spree::Price.find_by(variant: variant3)
-      price1.update(compare_at_amount: '149.99')
-      price2.update(compare_at_amount: '169.99')
-      price3.update(compare_at_amount: '79.99')
-      price1.save
-      price2.save
-      price3.save
-
-      product.master.prices.first.update(compare_at_amount: 29.99)
-      product.master.stock_items.update_all count_on_hand: 10, backorderable: true
       product.option_types << option_type
       product.variants << [variant1, variant2, variant3]
       product.tap(&:save)
