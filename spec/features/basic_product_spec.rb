@@ -18,6 +18,7 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
                        unique_identifier_type: 'mpn')
 
       visit "/products.rss"
+      allow(ENV).to receive(:[]).and_call_original
     end
 
     it 'it renders the stock XML', js: true do

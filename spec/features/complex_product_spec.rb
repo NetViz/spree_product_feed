@@ -35,6 +35,7 @@ describe 'Tests A Product With Variants Added To The Feed', type: :feature, js: 
       product.tap(&:save)
 
       visit "/products.rss"
+      allow(ENV).to receive(:[]).and_call_original
     end
 
     it "it adds the variant id's correctly", js: true do
