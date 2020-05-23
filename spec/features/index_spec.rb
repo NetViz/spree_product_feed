@@ -20,7 +20,7 @@ describe 'Set store values in xml feed', type: :feature, js: true do
 
   context 'When custom properties are set' do
     before do
-      store.update(url: 'www.therubberfactory.com', name: 'The Rubber Factory', default_locale: 'en')
+      store.update(url: 'www.therubberfactory.com', name: 'The Rubber Factory', default_locale: 'en-GB')
     end
 
     it 'the feed displays custom title, link and language' do
@@ -29,7 +29,7 @@ describe 'Set store values in xml feed', type: :feature, js: true do
       xml = Capybara.string(page.body)
       expect(xml).to have_text('<title>The Rubber Factory</title>')
       expect(xml).to have_text('<link>www.therubberfactory.com</link>')
-      expect(xml).to have_text('<language>en</language>')
+      expect(xml).to have_text('<language>en-gb</language>')
     end
   end
 end
