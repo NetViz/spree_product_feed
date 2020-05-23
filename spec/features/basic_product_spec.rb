@@ -9,16 +9,14 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
       ((first_store = Spree::Store.first) && first_store.name).to_s
     end
 
-    before do
-      create(:product, name: 'Spree Logo T-Shirt',
-                       sku: 'SP-LG-T',
-                       feed_active: true,
-                       available_on: '2013-08-14 01:02:03',
-                       unique_identifier: '80250-95240',
-                       unique_identifier_type: 'mpn')
+    let(:product) do
+      FactoryBot.create(:base_product, feed_active: true, unique_identifier: '80250-95240', unique_identifier_type: 'mpn' )
+    end
 
+    before do
+      product.tap(&:save)
+      
       visit "/products.rss"
-      allow(ENV).to receive(:[]).and_call_original
     end
 
     it 'it renders the stock XML', js: true do
