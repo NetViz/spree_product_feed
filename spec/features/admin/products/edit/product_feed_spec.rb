@@ -4,10 +4,10 @@ describe 'Tests The Product & Varaints Feed Items Are Visable & Work', type: :fe
   stub_authorization!
 
   context 'Editing a product' do
-
     before do
       create(:product, name: 'Spree Logo T-Shirt', sku: 'SP-LG-T',
-                       description: 'This is one awesome Spree T-Shirt with a black logo on the back.', available_on: '2013-08-14 01:02:03')
+                       description: 'This is one awesome Spree T-Shirt with a black logo on the back.',
+                       available_on: '2013-08-14 01:02:03')
 
       visit spree.admin_products_path
       within_row(1) { click_icon :edit }
