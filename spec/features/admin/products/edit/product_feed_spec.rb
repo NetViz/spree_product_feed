@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe 'Product feed fields', type: :feature, js: true do
+describe 'Tests The Product & Varaints Feed Items Are Visable & Work', type: :feature, js: true do
   stub_authorization!
 
-  context 'editing a product' do
+  context 'Editing a product' do
 
     before do
       create(:product, name: 'Spree Logo T-Shirt', sku: 'SP-LG-T',
@@ -13,17 +13,15 @@ describe 'Product feed fields', type: :feature, js: true do
       within_row(1) { click_icon :edit }
     end
 
-    it 'lists the product details with feed fields added' do
+    it 'lists the correct fields added for product feeds' do
       click_link 'Details'
-
-      expect(page).to have_css('.content-header h1', text: 'Products / Spree Logo T-Shirt')
 
       expect(page).to have_field(id: 'product_feed_active', checked: false)
       expect(page).to have_field(id: 'product_unique_identifier', with: '')
       expect(page).to have_content('GTIN')
     end
 
-    it 'Product feed form fields can be updated' do
+    it 'product feed form fields can be updated' do
       find(:css, "#product_feed_active").set(true)
       select2 'MPN', from: 'Unique Identifier Type'
       fill_in 'product_unique_identifier', with: '90210-90210'
@@ -37,7 +35,7 @@ describe 'Product feed fields', type: :feature, js: true do
       expect(page).to have_field(id: 'product_unique_identifier', with: '90210-90210')
     end
 
-    it 'Variant feed form fields are present and can be updated' do
+    it 'variant feed form fields are present and can be updated' do
       find(:css, "#product_feed_active").set(true)
       click_button 'Update'
 
