@@ -15,11 +15,11 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
 
     before do
       product.tap(&:save)
-      
+
       visit "/products.rss"
     end
 
-    it 'it renders the stock XML', js: true do
+    it 'it renders the stock XML' do
       xml = Capybara.string(page.body)
 
       expect(xml).to have_text('<title>Spree Test Store</title>')
@@ -27,13 +27,13 @@ describe 'Tests A Basic Product Added To The Feed', type: :feature, js: true do
       expect(xml).to have_text('<language>en-us</language>')
     end
 
-    it 'it adds the basic product id correctly', js: true do
+    it 'it adds the basic product id correctly' do
       xml = Capybara.string(page.body)
 
       expect(xml).to have_text('<g:id>1-1</g:id>')
     end
 
-    it 'it add the basic product unique_identifier and unique_identifier_type correctly', js: true do
+    it 'it add the basic product unique_identifier and unique_identifier_type correctly' do
       xml = Capybara.string(page.body)
 
       expect(xml).to have_text('<g:id>1-1</g:id>')
