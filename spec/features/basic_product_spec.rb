@@ -59,6 +59,14 @@ describe 'Test A Product Without Variants In The Feed', type: :feature, js: true
       expect(xml).to have_text('<g:availability>in stock</g:availability>')
     end
 
+    it 'shows IN STOCK when count on hand is 3 and backorderable is false' do
+      product.master.stock_items.update_all count_on_hand: 3, backorderable: false
+      visit "/products.rss"
+
+      xml = Capybara.string(page.body)
+      expect(xml).to have_text('<g:availability>in stock</g:availability>')
+    end
+
     it 'shows OUT OF STOCK when count on hand is 0 and backorderable is true' do
       product.master.stock_items.update_all count_on_hand: 0, backorderable: true
       visit "/products.rss"
