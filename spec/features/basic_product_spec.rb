@@ -1,25 +1,26 @@
 require 'spec_helper'
 
-describe 'Test A Basic Product In The Feed', type: :feature, js: true do
+describe 'Test A Product Without Variants In The Feed', type: :feature, js: true do
   stub_authorization!
 
   let(:product) do
     FactoryBot.create(:base_product,
-      name: 'Mens Socks',
-      meta_description: 'Pair of mens socks',
-      feed_active: true, unique_identifier: '80250-95240',
+      name: 'Mens Spree Logo Socks',
+      meta_description: 'A pair of mens socks in black with Spree logo.',
+      feed_active: true,
+      unique_identifier: '80250-95240',
       unique_identifier_type: 'mpn' )
   end
 
-  context 'A product set to be shown in the product feed' do
-    it 'shows the xml item, id, name and description correctly' do
+  context 'When feed_active is set to true, the product' do
+    it 'shows the xml item, id, name and description correctly in the feed' do
       product.tap(&:save)
       visit "/products.rss"
 
       xml = Capybara.string(page.body)
       expect(xml).to have_text('<g:id>1-1</g:id>')
-      expect(xml).to have_text('<g:title>Mens Socks</g:title>')
-      expect(xml).to have_text('<g:description>Pair of mens socks</g:description>')
+      expect(xml).to have_text('<g:title>Mens Spree Logo Socks</g:title>')
+      expect(xml).to have_text('<g:description>A pair of mens socks in black with Spree logo.</g:description>')
     end
   end
 
@@ -29,7 +30,6 @@ describe 'Test A Basic Product In The Feed', type: :feature, js: true do
       visit "/products.rss"
 
       xml = Capybara.string(page.body)
-      expect(xml).to have_text('<g:id>1-1</g:id>')
       expect(xml).to have_text('<g:gtin>8025082379237</g:gtin>')
     end
 
@@ -38,7 +38,6 @@ describe 'Test A Basic Product In The Feed', type: :feature, js: true do
       visit "/products.rss"
 
       xml = Capybara.string(page.body)
-      expect(xml).to have_text('<g:id>1-1</g:id>')
       expect(xml).to have_text('<g:mpn>MPN901222</g:mpn>')
     end
   end
@@ -69,7 +68,7 @@ describe 'Test A Basic Product In The Feed', type: :feature, js: true do
     end
   end
 
-  context 'When the product copare price is set it' do
+  context 'When the product compare price is set it' do
     it 'shows sale price if compare at price is higher than master price' do
       product.master.prices.first.update(compare_at_amount: 69.99)
       visit "/products.rss"
@@ -95,6 +94,26 @@ describe 'Test A Basic Product In The Feed', type: :feature, js: true do
       xml = Capybara.string(page.body)
       expect(xml).not_to have_text('<g:sale_price>9.99 USD</g:sale_price>')
       expect(xml).to have_text('<g:price>19.99 USD</g:price>')
+    end
+  end
+
+  context 'When a property is set with g:title and g:description' do
+    let(:property) { create(:property) }
+    let(:prop1) { create(:property, name: 'g:title', presentation: 'product_feed') }
+    let(:prop2) { create(:property, name: 'g:description', presentation: 'product_feed') }
+
+    it 'the default title and description are removed from the feed, and the new values set' do
+      product.update(properties: [prop1, prop2])
+      product.product_properties.first.update(value: 'THIS IS THE NEW TITLE')
+      product.product_properties.last.update(value: 'THIS IS THE NEW DESCRIPTION')
+
+      visit "/products.rss"
+
+      xml = Capybara.string(page.body)
+      expect(xml).not_to have_text('<g:title>Mens Spree Logo Socks</g:title>')
+      expect(xml).to have_text('<g:title>THIS IS THE NEW TITLE</g:title>')
+      expect(xml).not_to have_text('<g:description>A pair of mens socks in black with Spree logo.</g:description>')
+      expect(xml).to have_text('<g:description>THIS IS THE NEW DESCRIPTION</g:description>')
     end
   end
 end
